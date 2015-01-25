@@ -1,0 +1,21 @@
+body {
+  padding-top: 80px;
+}
+
+.hashtarget {
+  position: relative;
+  bottom: 80px;
+}
+
+.hashtarget:target + .target-color {
+  color: #F39C12;
+}
+
+a.not-link, a.not-link:visited, a.not-link:active, a.not-link:hover {
+  color: inherit;
+  text-decoration: inherit !important;
+}
+
+a.no-underline, a.no-underline:visited, a.no-underline:active, a.no-underline:hover {
+  text-decoration: none !important;
+}

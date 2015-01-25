@@ -28,8 +28,6 @@ for name in glob.glob("data/*.html"):
 for person_id in people:
   people[person_id]["total"] = sum(people[person_id]["taskpoints"].values())
 
-os.makedirs("./dist/")
-
 for i, person in people.items():
   person_tpl.stream(person=person).dump(open("dist/%i.html" % i, 'w'))
 
