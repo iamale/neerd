@@ -54,7 +54,7 @@ def parse(f):
         "message": tds[3].get_text(),
         "points": int(tds[4].get_text())
       })
-    groups.append(current_group)
+  groups.append(current_group)
 
   return namestr, taskname, groups
 
