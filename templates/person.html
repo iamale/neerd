@@ -3,6 +3,11 @@
 
 {% block content %}
   <h1>{{person.name}}</h1>
+  <ul class="fa-ul">
+    <li><i class="fa-li fa fa-map-marker"></i> {{person.location}}</li>
+    <li><i class="fa-li fa fa-star"></i> {{person.total}} points</li>
+  </ul>
+
   {% for taskid in person.tasks %}
     {% set task = person.tasks[taskid] %}
     <h3>

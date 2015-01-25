@@ -47,3 +47,5 @@ for i in 1111 1112 1113 1114 1115 1116 1117 1118 1119 1120 \
   unzip $i.zip
   rm $i.zip
 done
+
+wget http://neerc.ifmo.ru/school/spb/participantsReg.jsp -O participants.html

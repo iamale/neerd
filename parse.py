@@ -58,6 +58,16 @@ def parse(f):
 
   return namestr, taskname, groups
 
+def parse_participants(f):
+  soup = BeautifulSoup(f)
+  participants = {}
+  for tr in soup.find(class_="ttable").find_all("tr")[1:]:
+    id = int(tr.find_all("a")[-1]['href'].split("/")[1].split(".")[0])
+    participants[id] = {
+      'location': tr.find_all("a")[0].get_text()
+    }
+  return participants
+
 if __name__ == '__main__':
   import sys, json
   json.dump(parse(sys.stdin)[1], sys.stdout)
