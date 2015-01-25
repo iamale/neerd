@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% block title %}{{person.name}}{% endblock %}
+
+{% block content %}
+  <h1>{{person.name}}</h1>
+  {% for taskid in person.tasks %}
+    {% set task = person.tasks[taskid] %}
+    <h3>
+      <span id="task-{{taskid}}" class="hashtarget"></span>
+      <span class="target-color">Task {{taskid}}: {{person.tasknames[taskid]}}</span>
+      <a href="#task-{{taskid}}" style="no-underline">#</a>
+    </h3>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th style="width: 40px;"></th>
+          <th style="width: 150px;">Result</th>
+          <th style="width: 35%">Message</th>
+          <th>Task description</th>
+          <th style="width: 150px;">Points</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for group in task %}
+          <tr>
+            <th scope="row" colspan="5">
+              <span id="task-{{taskid}}-{{group.id}}" class="hashtarget"></span>
+              <span class="target-color">Group #{{group.id}}: {{group.name}}</span>
+                <a href="#task-{{taskid}}-{{group.id}}" class="no-underline">#</a>
+            </th>
+          </tr>
+
+          {% for test in group.tests %}
+            <tr>
+              <th scope="row" style="text-align: right;">
+                <span id="task-{{taskid}}-{{group.id}}-{{test.number}}" class="hashtarget"></span>
+                <a href="#task-{{taskid}}-{{group.id}}-{{test.number}}" class="not-link target-color">{{test.number}}</a>
+              </th>
+              <td>
+                {% if test.result == "accepted" %}
+                  <span class="label label-success">{{test.result}}</span>
+                {% else %}
+                  <span class="label label-danger">{{test.result}}</span>
+                {% endif %}
+              </td>
+              <td><samp>{{test.message}}</samp></td>
+              <td>{{test.comment}}</td>
+              <td>{{test.points}}</td>
+            </tr>
+          {% endfor %}
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endfor %}
+{% endblock %}

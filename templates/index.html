@@ -1,0 +1,84 @@
+{% extends "layout.html" %}
+
+{% block navbar_after %}
+  <form class="navbar-form navbar-right" role="search" id="searchForm">
+    <div class="form-group">
+      <input type="text" class="form-control" placeholder="Search">
+    </div>
+  </form>
+{% endblock %}
+
+{% block content %}
+  <table id="participantsTable" class="table table-hover sortable table-participants">
+    <thead>
+      <tr>
+        <th style="width: 80px;">ID</th>
+        <th data-firstsort="desc">Name</th>
+        <th data-firstsort="desc">School</th>
+        <th style="width: 80px;" data-firstsort="asc">Grade</th>
+        <th style="width: 40px;" data-firstsort="desc">1</th>
+        <th style="width: 40px;" data-firstsort="desc">2</th>
+        <th style="width: 40px;" data-firstsort="desc">3</th>
+        <th style="width: 40px;" data-firstsort="desc">4</th>
+        <!--th>5</th>
+        <th>6</th>
+        <th>7</th>
+        <th>8</th-->
+        <th style="width: 80px;" data-defaultsort="desc">Total</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for id in people %}
+        {% set person = people[id] %}
+        <tr>
+          <td>{{id}}</td>
+          <td><a href="/{{id}}.html">{{person.name}}</a></td>
+          <td>{{person.school | default('-', true)}}</td>
+          <td>{{person.class | default('-', true)}}</td>
+          <td>{{person.taskpoints[1] | default('')}}</td>
+          <td>{{person.taskpoints[2] | default('')}}</td>
+          <td>{{person.taskpoints[3] | default('')}}</td>
+          <td>{{person.taskpoints[4] | default('')}}</td>
+          {# <td>{{person.taskpoints[5] | default('')}}</td>
+          <td>{{person.taskpoints[6] | default('')}}</td>
+          <td>{{person.taskpoints[7] | default('')}}</td>
+          <td>{{person.taskpoints[8] | default('')}}</td> #}
+          <td>{{person.total}}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <script src="https://code.jquery.com/jquery-2.1.0.min.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="assets/bootstrap-sortable.css">
+  <script src="assets/moment.min.js" type="text/javascript"></script>
+  <script src="assets/bootstrap-sortable.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $("#searchForm input").on("input", function(e) {
+        var term = $(this).val().replace(/\s/g,"").toLowerCase();
+
+        $("#participantsTable tbody > tr").each(function(i) {
+          var text = $(this).find("td").text().replace(/\s/g,"").toLowerCase();
+          if (text.indexOf(term)>=0) {
+            $(this).show();
+          } else {
+            $(this).hide();
+          }
+        });
+        $("#participantsTable tr:contains('" + term + "')").show();
+      });
+
+      $("#searchForm input").on("keypress", function(e) {
+        if (e.which == 13) {
+          $('html, body').animate({
+            scrollTop: $("#participantsTable").offset().top
+          }, 500);
+        };
+      });
+
+      $("#searchForm input").val("");
+    });
+  </script>
+{% endblock %}

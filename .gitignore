@@ -1,0 +1,9 @@
+__pycache__/
+*.py[cod]
+
+dist/*
+data/*
+!data/.gitkeep
+
+pip-log.txt
+pip-delete-this-directory.txt
