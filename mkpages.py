@@ -8,6 +8,7 @@ env = Environment(loader=FileSystemLoader("./templates"))
 
 index_tpl = env.get_template("index.html")
 person_tpl = env.get_template("person.html")
+about_tpl = env.get_template("about.html")
 
 people = {}
 
@@ -32,3 +33,4 @@ for i, person in people.items():
   person_tpl.stream(person=person).dump(open("dist/%i.html" % i, 'w'))
 
 index_tpl.stream(people=people).dump(open("dist/index.html", 'w'))
+about_tpl.stream().dump(open("dist/about.html", 'w'))
