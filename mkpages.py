@@ -3,6 +3,7 @@ import glob
 import codecs
 from jinja2 import Environment, FileSystemLoader
 from parse import parse, parse_person, parse_participants
+import yaml
 
 env = Environment(loader=FileSystemLoader("./templates"))
 
@@ -12,6 +13,7 @@ about_tpl = env.get_template("about.html")
 
 people = {}
 people2 = parse_participants(codecs.open("data/participants.html"))
+people3 = yaml.load(codecs.open("static_data/data_add.yml"))
 
 for name in glob.glob("data/ru.*.html"):
   person_id = int(name.split("/")[-1].split(".")[-4])
@@ -21,6 +23,9 @@ for name in glob.glob("data/ru.*.html"):
     people[person_id] = parse_person(namestr)
     if person_id in people2:
       people[person_id].update(people2[person_id])
+    for key in people3:
+      if person_id in people3[key]:
+        people[person_id][key] = people3[key][person_id]
     people[person_id]["tasks"] = {}
     people[person_id]["tasknames"] = {}
     people[person_id]["taskpoints"] = {}

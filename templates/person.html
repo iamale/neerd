@@ -6,6 +6,9 @@
   <ul class="fa-ul">
     <li><i class="fa-li fa fa-map-marker"></i> {{person.location}}</li>
     <li><i class="fa-li fa fa-star"></i> {{person.total}} points</li>
+    {% if "vk" in person %}
+      <li><i class="fa-li fa fa-vk"></i> <a href="{{person.vk}}">{{person.vk}}</a></li>
+    {% endif %}
   </ul>
 
   {% for taskid in person.tasks %}
